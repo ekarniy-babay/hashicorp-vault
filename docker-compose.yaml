@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.9'
 
 services:
 
@@ -8,13 +8,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8200:8200
+    networks:
+      docker-net1:
+        ipv4_address: 192.168.2.245
     volumes:
-      - ./vault/config:/vault/config
-      - ./vault/policies:/vault/policies
-      - ./vault/data:/vault/data
-      - ./vault/logs:/vault/logs
+      - vault-config:/vault/config
+      - vault-policies:/vault/policies
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
     environment:
-      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_ADDR=http://192.168.2.245:8200
     command: server -config=/vault/config/vault-config.json
     cap_add:
       - IPC_LOCK
@@ -28,17 +31,43 @@ services:
     ports:
       - 8500:8500
     command: agent -server -bind 0.0.0.0 -client 0.0.0.0 -bootstrap-expect 1 -config-file=/consul/config/config.json
+    networks:
+      docker-net1:
+        ipv4_address: 192.168.2.246
     volumes:
-      - ./consul/config/consul-config.json:/consul/config/config.json
-      - ./consul/data:/consul/data
+      - consul-config:/consul/config #/config.json
+      - consul-data:/consul/data
 
   consul-worker:
     build:
       context: ./consul
       dockerfile: Dockerfile
     command: agent -server -join consul -config-file=/consul/config/config.json
+    networks:
+      docker-net1:
+        ipv4_address: 192.168.2.247
     volumes:
-      - ./consul/config/consul-config.json:/consul/config/config.json
+      - consul-config:/consul/config #/config.json
     depends_on:
       - consul
-      
+
+volumes:
+  vault-config:
+    external: true
+  vault-policies:
+    external: true
+  vault-data:
+    external: true
+  vault-log:
+    external: true
+  consul-config:
+    external: true
+  consul-data:
+    external: true
+
+networks:
+  default:
+    external:
+      name: docker-net1
+  docker-net1:
+    external: true
