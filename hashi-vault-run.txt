@@ -10,6 +10,7 @@ docker rm $(docker ps -a --filter name=matter* -aq)
 
 ### Create volumes
 docker volume create vault-config
+docker volume create vault-policies
 docker volume create vault-data
 docker volume create vault-log
 docker volume create consul-config
