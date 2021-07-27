@@ -14,6 +14,8 @@ RUN apk --no-cache add \
       ca-certificates \
       wget
 
+RUN export LD_LIBRARY_PATH=/usr/local/lib
+
 # download and set up vault
 RUN wget --quiet --output-document=/tmp/vault.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip && \
     unzip /tmp/vault.zip -d /vault && \

@@ -15,6 +15,8 @@ RUN apk --no-cache add \
       ca-certificates \
       wget
 
+RUN export LD_LIBRARY_PATH=/usr/local/lib
+
 # download and set up consul
 RUN wget --quiet --output-document=/tmp/consul.zip https://releases.hashicorp.com/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
     unzip /tmp/consul.zip -d /consul && \
