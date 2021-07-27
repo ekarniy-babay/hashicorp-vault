@@ -59,7 +59,7 @@ volumes:
     external: true
   vault-data:
     external: true
-  vault-log:
+  vault-logs:
     external: true
   consul-config:
     external: true
