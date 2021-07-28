@@ -1,7 +1,7 @@
 {
     "backend": {
       "consul": {
-        "address": "consul:8500",
+        "address": "192.168.2.246:8500",
         "path": "vault/"
       }
     },
