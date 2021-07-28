@@ -28,10 +28,14 @@ docker cp ./consul/config/consul-config.json dummy:/root
 docker cp ./consul/config/consul-config.json dummy:/root/config.json
 docker stop dummy
 
-Unseal Key 1: 1NlhvfKhrPDsx7kSZKwJ2erXQcIW5vAQMZWx9sMilTLE
-Unseal Key 2: F17RWyZkn2ekE3yHB1NFOarL1Y9H7WYOna8zs1788r82
-Unseal Key 3: NaxTIJYKpuXgPSflUwchWIoZMP1RTogKYH85zxCWYd6N
-Unseal Key 4: XP2h1ny19KonIpWMrzkfEUfnt4KOFnzNsKVooK5JeWk9
-Unseal Key 5: /wiSSiQfrG+2hl+fH3wu6JCODc2cItnskSA0acGCdZZF
+docker exec -it vault /bin/bash
 
-Initial Root Token: c0d49d34-ace5-652d-3525-ed3209eeed00
+
+Unseal Key 1: PmNIBjBO3N6NoVtGFwzC1KMCuTquYkUnxusjz1pg6t0v
+Unseal Key 2: eQ24ZxF7Cjn0pzDUfmYT4moBrLjshyg/rHle4oYETnqp
+Unseal Key 3: sc8iC9G5o4bZCCrSFta3roWzoMThKlJHXPBdAe6Wn1vJ
+Unseal Key 4: bg/ehW34MuawSSV2F/t3tBFvo8NzB/3z+j4d5AqHNiTK
+Unseal Key 5: g1TJzpMG7exS8lYIwUgxZampFQItXDcVGBMKRyaFZFQx
+
+Initial Root Token: s.YLk2olDYOqybrBgAL76jYsuh
+
