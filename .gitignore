@@ -3,3 +3,4 @@ vault/logs/*
 consul/data/*
 .DS_Store
 hashi-vault-run.txt
+local_secrets
