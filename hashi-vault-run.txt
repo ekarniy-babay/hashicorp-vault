@@ -15,6 +15,7 @@ docker volume create vault-data
 docker volume create vault-log
 docker volume create consul-config
 docker volume create consul-data
+docker volume create backup-data
 
 ## copy files to volume
 docker cp ./vault/config/vault-config.json vault-config:
