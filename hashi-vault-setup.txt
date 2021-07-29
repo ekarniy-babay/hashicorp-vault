@@ -91,13 +91,36 @@ vault write auth/userpass/users/admin password='pass'
 
 #login to vault using username and pass:
 vault login -method=userpass username=admin password='pass'
+vault login -method=approle user_id=admin secret_id=
 
 # create new token:
 vault token create
 
+# add test secret
+vault kv put secret/dev/appsecret username=dbUser
+
+### Jenkins ###
+#################################################################
+#################################################################
+Tutorials don’t state this, but you will need to click on “Advanced settings” in the Vault Plugin, and then CHANGE from the default to
+K/V Engine version: 1
+#################################################################
+#################################################################
+
+vault auth enable approle
 
 
+# Load jenkins policy
+vault policy write jenkins jenkins_policy.hcl
 
+# Create approle for Jenkins
+vault write auth/approle/role/jenkins policies=jenkins
+
+vault write auth/kv/role/main policies=jenkins
+
+#Read creds:
+vault read auth/approle/role/jenkins/role-id
+vault write -f auth/approle/role/jenkins/secret-id
 
 
 

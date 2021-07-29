@@ -4,6 +4,6 @@ path "auth/approle/login" {
 }
 
 # Read test data
-path "secret/dev/*" {
+path "sysadmins.club/*" {
   capabilities = [ "read" ]
 }
