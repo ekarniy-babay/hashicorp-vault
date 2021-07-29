@@ -10,7 +10,7 @@ services:
     container_name: vault
     restart: always    
     ports:
-      - 80:80
+      - 8200:8200
     networks:
       docker-net1:
         ipv4_address: 192.168.2.245
@@ -20,7 +20,7 @@ services:
       - vault-data:/vault/data
       - vault-logs:/vault/logs
     environment:
-      - VAULT_ADDR=http://192.168.2.245:80
+      - VAULT_ADDR=http://192.168.2.245:8200
     command: server -config=/vault/config/vault-config.json
     cap_add:
       - IPC_LOCK
