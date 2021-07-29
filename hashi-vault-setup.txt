@@ -68,7 +68,8 @@ vault secrets list
 vault secrets enable -path=sysadmins.club kv
 
 # add secret:
-vault kv put sysadmins.club/testSecret mainPass=''
+vault kv put sysadmins.club/testSecret testPass='test123'
+vault kv put sysadmins.club/testSecret mainPass='Cthtyflf@20!17'
 
 # get secret
 vault kv get sysadmins.club/testSecret 
