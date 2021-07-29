@@ -8,6 +8,7 @@ services:
       context: ./vault
       dockerfile: Dockerfile
     container_name: vault
+    restart: always    
     ports:
       - 8200:8200
     networks:
@@ -31,6 +32,7 @@ services:
       context: ./consul
       dockerfile: Dockerfile
     container_name: consul
+    restart: always    
     ports:
       - 8500:8500
     command: agent -server -bind 0.0.0.0 -client 0.0.0.0 -bootstrap-expect 1 -config-file=/consul/config/config.json
@@ -46,6 +48,7 @@ services:
       context: ./consul
       dockerfile: Dockerfile
     container_name: consul-worker
+    restart: always    
     command: agent -server -join consul -config-file=/consul/config/config.json
     networks:
       docker-net1:

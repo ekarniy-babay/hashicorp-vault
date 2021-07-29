@@ -6,6 +6,24 @@
 ## https://stackoverflow.com/questions/27937185/assign-static-ip-to-docker-container
 docker network create -d macvlan --subnet=192.168.2.0/24 --ip-range=192.168.2.240/28 --gateway=192.168.2.1 -o parent=eth0 docker-net1
 
+# Allow cross host and containers access
+# https://stackoverflow.com/questions/49600665/docker-macvlan-network-inside-container-is-not-reaching-to-its-own-host 
+docker network create -d macvlan -o parent=eno1 \
+  --subnet 192.168.2.0/24 \
+  --gateway 192.168.2.1 \
+  --ip-range 92.168.2.240/28 \
+  --aux-address 'host=192.168.2.241' \
+  mynet
+
+sudo ip link add mynet-shim link eth0 type macvlan  mode bridge
+
+sudo ip addr add 192.168.2.241/32 dev mynet-shim
+sudo ip link set mynet-shim up
+
+sudo ip route add 192.168.2.240/28 dev mynet-shim
+
+
+
 # remove containers using wildcard
 docker stop $(docker ps -a --filter name=matter* --filter status=running -aq)
 docker rm $(docker ps -a --filter name=matter* -aq)
@@ -36,3 +54,50 @@ docker exec -it vault /bin/bash
 
 docker run --rm -it -v my-api-files:/temporary -v $PWD/jsonFileLocation:/big-data alpine cp /big-data/*.json /temporary
 docker run --rm -it -v my-api-files:/test alpine ls /test
+
+
+# Vault commands:
+# Environment variables:
+export VAULT_ADDR=http://1.1.1.1:8200
+export VAULT_TOKEN=
+
+# List secrets
+vault secrets list
+
+# enable secrets
+vault secrets enable -path=sysadmins.club kv
+
+# add secret:
+vault kv put sysadmins.club/testSecret mainPass=''
+
+# get secret
+vault kv get sysadmins.club/testSecret 
+
+# Enable the database secrets engine at: database/
+vault secrets enable database
+
+# check
+vault path-help database
+vault path-help database/roles
+
+# list authentication providers:
+vault auth list
+
+# enable authentication providers:
+vault secrets enable userpass #ssh
+
+# add user
+vault write auth/userpass/users/admin password='pass'
+
+#login to vault using username and pass:
+vault login -method=userpass username=admin password='pass'
+
+# create new token:
+vault token create
+
+
+
+
+
+
+
