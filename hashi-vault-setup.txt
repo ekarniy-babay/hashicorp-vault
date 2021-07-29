@@ -58,7 +58,7 @@ docker run --rm -it -v my-api-files:/test alpine ls /test
 
 # Vault commands:
 # Environment variables:
-export VAULT_ADDR=http://1.1.1.1:8200
+export VAULT_ADDR=http://192.168.2.245:8200
 export VAULT_TOKEN=
 
 # List secrets
