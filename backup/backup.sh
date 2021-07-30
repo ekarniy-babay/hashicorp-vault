@@ -23,4 +23,4 @@ then
   usage
 fi
 date=$(date '+%Y-%m-%d')
-sudo docker run --rm --volumes-from $CONTAINER_NAME -v $(pwd):/backup busybox tar cvf /backup/backup-$CONTAINER_NAME-$date.tar $VOLUME_NAME
+sudo docker run --rm --volumes-from $CONTAINER_NAME -v $(pwd):/backup busybox tar cvf /backup/backup-$CONTAINER_NAME.tar $VOLUME_NAME

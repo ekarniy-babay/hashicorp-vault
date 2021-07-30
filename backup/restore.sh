@@ -16,4 +16,4 @@ then
   usage
 fi
 
-sudo docker run --rm --volumes-from $NEW_CONTAINER_NAME -v $(pwd):/backup busybox tar xvf /backup/backup.tar
+sudo docker run --rm --volumes-from $NEW_CONTAINER_NAME -v $(pwd):/backup busybox tar xvf /backup/backup-$NEW_CONTAINER_NAME.tar

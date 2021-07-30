@@ -49,6 +49,16 @@ docker cp ./consul/config/consul-config.json dummy:/root
 docker cp ./consul/config/consul-config.json dummy:/root/config.json
 docker stop dummy
 
+# backup / restore
+cd ./backup
+
+cp backup-consul.tar backup.tar
+./restore.sh consul
+
+cp backup-vault.tar backup.tar
+./restore.sh vault
+
+
 docker exec -it vault /bin/bash
 
 
