@@ -29,16 +29,16 @@ docker stop $(docker ps -a --filter name=matter* --filter status=running -aq)
 docker rm $(docker ps -a --filter name=matter* -aq)
 
 
-### Create volumes
+###### Create volumes ######
 docker volume create vault-config
 docker volume create vault-policies
 docker volume create vault-data
 docker volume create vault-logs
 docker volume create consul-config
 docker volume create consul-data
-docker volume create backup-data
+# docker volume create backup-data
 
-## copy files to volume
+###### copy config files to volumes ######
 docker run -d --rm --name dummy -v vault-config:/root alpine tail -f /dev/null
 #docker exec -it dummy /bin/bash
 docker cp ./vault/config/vault-config.json dummy:/root
@@ -48,6 +48,21 @@ docker run -d --rm --name dummy -v consul-config:/root alpine tail -f /dev/null
 docker cp ./consul/config/consul-config.json dummy:/root
 docker cp ./consul/config/consul-config.json dummy:/root/config.json
 docker stop dummy
+
+###### backup / restore ######
+# backup
+./backup.sh vault /vault
+./backup.sh consul /consul
+
+# restore
+cd ./backup
+
+cp backup-consul.tar backup.tar
+./restore.sh consul
+
+cp backup-vault.tar backup.tar
+./restore.sh vault
+
 
 docker exec -it vault /bin/bash
 
