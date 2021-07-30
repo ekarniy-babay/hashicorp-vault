@@ -39,12 +39,12 @@ docker volume create consul-data
 docker volume create backup-data
 
 ## copy files to volume
-docker run -d --rm --name dummy -v vault-config:/root ubuntu tail -f /dev/null
+docker run -d --rm --name dummy -v vault-config:/root alpine tail -f /dev/null
 #docker exec -it dummy /bin/bash
 docker cp ./vault/config/vault-config.json dummy:/root
 docker stop dummy
 
-docker run -d --rm --name dummy -v consul-config:/root ubuntu tail -f /dev/null
+docker run -d --rm --name dummy -v consul-config:/root alpine tail -f /dev/null
 docker cp ./consul/config/consul-config.json dummy:/root
 docker cp ./consul/config/consul-config.json dummy:/root/config.json
 docker stop dummy
